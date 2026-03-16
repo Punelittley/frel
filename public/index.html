@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/index.css">
+</head>
+<style>
+    :root {
+    --accent-green: #1dbf73;
+    --accent-green-dark: #19a463;
+    --text-muted: #62646a;
+    --border-soft: #e4e5e7;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #222;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 13px;
+    color: #999;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 40px;
+}
+
+.header {
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 36px;
+    width: auto;
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #74767e;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+.nav-link.active-link {
+    color: #1dbf73 !important;
+}
+
+.btn-login {
+    padding: 8px 24px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-profile {
+    padding: 8px 24px;
+    background: #1dbf73;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: none;
+}
+
+.header-categories {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid #f9f9f9;
+}
+
+.header-categories a {
+    font-size: 13px;
+    color: #74767e;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.user-menu {
+    position: relative;
+    display: none;
+}
+
+.user-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 16px;
+    border: 1px solid #e4e5e7;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-menu-btn img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 10px;
+    display: none;
+    min-width: 200px;
+    z-index: 100;
+}
+
+.user-dropdown.show {
+    display: block;
+}
+
+.user-dropdown a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #404145;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.user-dropdown a:hover {
+    background: #f9f9f9;
+    color: #1dbf73;
+}
+
+.user-dropdown .divider {
+    border-top: 1px solid #f0f0f0;
+}
+
+.user-dropdown .logout {
+    color: #e74c3c;
+}
+
+
+.hero-premium {
+    padding: 80px 0;
+    background: radial-gradient(circle at center, #ffffff 0%, #f7f7f9 100%);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.hero-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-green);
+}
+
+.hero-info h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero-info h1 span {
+    color: var(--accent-green);
+}
+
+.hero-info p {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+.hero-search-mega {
+    display: flex;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 5px;
+
+}
+
+.search-input-group {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.search-input-group input {
+    border: none;
+    outline: none;
+    padding: 12px;
+    width: 100%;
+    font-size: 15px;
+}
+
+.btn-main {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0 25px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-main:hover {
+    background: var(--accent-green);
+    color: #fff !important;
+}
+
+.hero-popular {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #999;
+}
+
+.hero-popular a {
+    color: var(--text-muted);
+    margin-left: 10px;
+    border-bottom: 1px solid transparent;
+}
+
+.hero-popular a:hover {
+    border-color: #999;
+    color: var(--accent-green);
+}
+
+.hero-visual {
+    position: relative;
+    height: 350px;
+}
+
+.floating-card {
+    position: absolute;
+    background: #fff;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #eee;
+    z-index: 2;
+}
+
+.c1 {
+    top: 10%;
+    right: 5%;
+}
+
+.c2 {
+    top: 40%;
+    left: 0;
+}
+
+.c3 {
+    bottom: 10%;
+    right: 15%;
+}
+
+.abstract-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #f0f0f0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.abstract-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section-title {
+    margin: 50px 0 30px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.card {
+    border: 1px solid #eee;
+    overflow: hidden;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: var(--accent-green);
+}
+
+.card-preview {
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 22px;
+    height: 22px;
+    background: #eee;
+}
+
+.user-name {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 14px;
+    font-weight: 500;
+    color: #222;
+    height: 40px;
+    display: block;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #f9f9f9;
+    padding-top: 10px;
+    font-size: 13px;
+}
+
+.card-price {
+    font-weight: 800;
+}
+
+.card-rating {
+    color: #ffb33e;
+}
+
+.features {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+}
+
+.feature-item {
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.feature-item:hover {
+    background: #f9f9fb;
+}
+
+.feature-item h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.feature-item p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.services-slider-section {
+    padding: 60px 0;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    background: #fff;
+    overflow: hidden;
+}
+
+.services-slider-section h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.slider-wrapper {
+    position: relative;
+}
+
+.slider-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 10px;
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+.slide-card {
+    min-width: 300px;
+    flex-shrink: 0;
+    border: 1px solid #eee;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.slide-card:hover {
+    border-color: var(--accent-green);
+
+}
+
+.slide-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.slide-card-body {
+    padding: 18px;
+}
+
+.slide-card-body strong {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.slide-card-body span {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #eee;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.slider-btn:hover {
+    background: var(--accent-green);
+    color: #fff;
+    border-color: var(--accent-green);
+}
+
+.slider-btn.prev {
+    left: -10px;
+}
+
+.slider-btn.next {
+    right: -10px;
+}
+
+.seller-cta {
+    margin: 80px 0;
+}
+
+.seller-cta-wrapper {
+    background: #f9f9fb;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border-soft);
+}
+
+.cta-content {
+    max-width: 500px;
+}
+
+.cta-content h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.cta-content p {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.btn-dark {
+    display: inline-block;
+    background: #222;
+    color: #fff;
+    padding: 14px 32px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-dark:hover {
+    background: var(--accent-green);
+    color: #fff !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-box {
+    background: #fff;
+    width: 95%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 36px;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-box h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.modal-box .modal-category {
+    font-size: 12px;
+    color: var(--accent-green);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.modal-box .modal-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.modal-box .modal-desc {
+    font-size: 15px;
+    color: #62646a;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.modal-box .modal-price {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.modal-box .modal-seller {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #f9f9fb;
+}
+
+.modal-box .modal-seller img {
+    width: 40px;
+    height: 40px;
+}
+
+.modal-box .modal-seller strong {
+    font-size: 15px;
+}
+
+.modal-box .modal-seller span {
+    font-size: 13px;
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.btn-modal {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-green);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-modal:hover {
+    background: var(--accent-green-dark);
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+}
+
+.btn-close-modal:hover {
+    color: #222;
+}
+
+.modal-box {
+    position: relative;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 15px;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .logo {
+        order: 1;
+    }
+
+    .logo img {
+        height: 30px;
+    }
+
+    .nav-group {
+        order: 2;
+        gap: 12px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+    }
+
+    .btn-login,
+    .btn-profile {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    .user-menu-btn {
+        padding: 5px 10px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .user-menu-btn img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .user-dropdown {
+        right: 0;
+        left: auto;
+        min-width: 200px;
+        z-index: 9999;
+    }
+
+    .header-categories {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 14px;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .header-categories::-webkit-scrollbar {
+        display: none;
+    }
+
+    .header-categories a {
+        font-size: 12px;
+    }
+
+    .hero-premium {
+        padding: 50px 0;
+    }
+
+    .hero-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .hero-info h1 {
+        font-size: 32px;
+    }
+
+    .hero-info p {
+        font-size: 16px;
+    }
+
+    .hero-visual {
+        height: 250px;
+    }
+
+    .hero-search-mega {
+        flex-direction: column;
+    }
+
+    .search-input-group input {
+        padding: 12px;
+    }
+
+    .btn-main {
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        margin: 40px 0 20px;
+    }
+
+    .floating-card {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .abstract-circle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .slide-card {
+        min-width: 100%;
+    }
+
+    .slider-btn.prev {
+        left: 5px;
+    }
+
+    .slider-btn.next {
+        right: 5px;
+    }
+
+    .seller-cta-wrapper {
+        flex-direction: column;
+        padding: 40px 30px;
+        text-align: center;
+    }
+
+    .cta-content h2 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-top {
+        padding: 8px 0;
+        gap: 8px;
+    }
+
+    .logo img {
+        height: 24px;
+    }
+
+    .nav-group:nth-child(2) {
+        order: 3;
+        flex: 1 1 100%;
+        justify-content: space-between;
+    }
+
+    .user-menu {
+        order: 2;
+    }
+
+    .nav-link {
+        font-size: 12px;
+    }
+
+    .btn-login,
+    .btn-profile {
+        order: 2;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .user-menu-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+        gap: 4px;
+    }
+
+    .user-menu-btn img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .user-dropdown {
+        position: fixed;
+        top: auto;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        min-width: unset;
+        border-radius: 10px;
+    }
+
+    .header-categories {
+        padding: 8px 0;
+        gap: 12px;
+    }
+
+    .header-categories a {
+        font-size: 11px;
+    }
+
+    .hero-premium {
+        padding: 30px 0;
+    }
+
+    .hero-info h1 {
+        font-size: 26px;
+    }
+
+    .hero-info p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .hero-visual {
+        height: 180px;
+        display: none;
+    }
+
+    .hero-wrapper {
+        gap: 0;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .hero-popular {
+        font-size: 12px;
+    }
+
+    .hero-popular a {
+        margin-left: 6px;
+    }
+
+    .floating-card {
+        display: none;
+    }
+
+    .features {
+        padding: 40px 0;
+    }
+
+    .features-grid {
+        gap: 15px;
+    }
+
+    .feature-item {
+        padding: 15px;
+    }
+
+    .feature-item h3 {
+        font-size: 16px;
+    }
+
+    .feature-item p {
+        font-size: 13px;
+    }
+
+    .slide-card {
+        min-width: 100%;
+    }
+
+    .slider-track {
+        gap: 10px;
+    }
+
+    .services-slider-section {
+        padding: 40px 0;
+    }
+
+    .services-slider-section h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .seller-cta {
+        margin: 40px 0;
+    }
+
+    .seller-cta-wrapper {
+        padding: 30px 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 22px;
+    }
+
+    .cta-content p {
+        font-size: 14px;
+    }
+}
+</style>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <img src="img/Freelance.svg" alt="Freelance логотип" onerror="this.style.display='none';this.parentElement.innerHTML='<strong style=font-size:22px;font-weight:800>MW.</strong>'">
+                </a>
+                <nav class="nav-group">
+                    <a href="exchange.html" class="nav-link" data-page="exchange">Биржа</a>
+                    <a href="projects.html" class="nav-link" data-page="projects">Проекты</a>
+                    <a href="education.html" class="nav-link" data-page="education">Обучение</a>
+                </nav>
+                <div class="nav-group">
+                    <a href="login.html" class="btn-login" id="headerLoginBtn">Войти</a>
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-menu-btn" onclick="document.getElementById('userDropdown').classList.toggle('show')">
+                            <img id="headerAvatar" src="" alt="">
+                            <span id="headerUserName">User</span>
+                            <span style="font-size:10px;color:#999">▼</span>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="profile-2.html">Мой профиль</a>
+                            <a href="profile-2.html#orders">Мои заказы</a>
+                            <a href="profile-2.html#settings">Настройки</a>
+                            <div class="divider"></div>
+                            <a href="#" class="logout" onclick="logoutUser()">Выйти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-categories">
+                <a href="exchange.html?cat=design">Дизайн</a>
+                <a href="exchange.html?cat=dev">Разработка IT</a>
+                <a href="exchange.html?cat=texts">Тексты</a>
+                <a href="exchange.html?cat=seo">SEO</a>
+                <a href="exchange.html?cat=ads">Реклама</a>
+                <a href="exchange.html?cat=video">Видео</a>
+                <a href="exchange.html">Все категории</a>
+            </div>
+        </div>
+    </header>
+    <section class="hero-premium">
+        <div class="container hero-wrapper">
+            <div class="hero-info">
+                <div class="hero-badge">
+                    <span class="dot"></span> 12,450 специалистов онлайн
+                </div>
+                <h1>Услуги фрилансеров <br> для вашего <span>бизнеса</span></h1>
+                <p>Маркетплейс, где задачи решаются за часы, а не недели. <br>Фиксированные цены, проверенные исполнители.</p>
+                
+                <div class="hero-search-mega">
+                    <div class="search-input-group">
+                        <input type="text" id="heroSearch" placeholder="Что нужно сделать? (например, дизайн лендинга)">
+                    </div>
+                    <button class="btn-main" onclick="searchServices()">Найти услуги</button>
+                </div>
+                <div class="hero-popular">
+                    <span>Популярно:</span>
+                    <a href="#" onclick="searchTag('логотип')">Логотипы</a>
+                    <a href="#" onclick="searchTag('WordPress')">WordPress</a>
+                    <a href="#" onclick="searchTag('SEO')">SEO</a>
+                    <a href="#" onclick="searchTag('текст')">Тексты</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card c1">
+                    <div>
+                        <strong>Разработка</strong><br>
+                        <span style="font-size:13px;color:#999;">от 1 500 ₽</span>
+                    </div>
+                </div>
+                <div class="floating-card c2">
+                    <div>
+                        <strong>Дизайн</strong><br>
+                        <span style="font-size:13px;color:#999;">от 500 ₽</span>
+                    </div>
+                </div>
+                <div class="floating-card c3">
+                    <div>
+                        <strong>Монтаж</strong><br>
+                        <span style="font-size:13px;color:#999;">от 1 000 ₽</span>
+                    </div>
+                </div>
+                <div class="main-illustration">
+                 <div class="abstract-circle"><img src="img/1.png" alt="Фрилансер"></div>   
+                </div>
+            </div>
+        </div>
+    </section>
+    <main class="container">
+        <h2 class="section-title">Популярные услуги</h2>
+        <div class="grid" id="servicesGrid">
+            <div style="text-align:center;color:#999;grid-column:1/-1;padding:40px;">Загрузка...</div>
+        </div>
+    </main>
+    <section class="features">
+        <div class="container features-grid">
+            <div class="feature-item">
+                <h3>Безопасная сделка</h3>
+                <p>Ваши средства защищены. Исполнитель получит оплату только после того, как вы подтвердите выполнение работы.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Быстрый старт</h3>
+                <p>Среднее время ответа исполнителя — 15 минут. Начните работу над проектом в день обращения.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Гарантия возврата</h3>
+                <p>Если работа не выполнена или не соответствует качеству, мы вернем вам полную стоимость заказа.</p>
+            </div>
+        </div>
+    </section>
+    <section class="services-slider-section">
+        <div class="container">
+            <h2>Что мы можем предложить</h2>
+            <div class="slider-wrapper">
+                <button class="slider-btn prev" onclick="slideServices(-1)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="slider-track" id="servicesSlider">
+                    <div class="slide-card">
+                        <img src="img/it.jpg" alt="Разработка">
+                        <div class="slide-card-body">
+                            <strong>Разработка</strong>
+                            <span>от 1 500 ₽</span>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="img/desighn.jpg" alt="Дизайн">
+                        <div class="slide-card-body">
+                            <strong>Дизайн</strong>
+                            <span>от 500 ₽</span>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="img/da.jpg" alt="Монтаж">
+                        <div class="slide-card-body">
+                            <strong>Монтаж</strong>
+                            <span>от 1 000 ₽</span>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="img/seo.png" alt="SEO">
+                        <div class="slide-card-body">
+                            <strong>SEO-продвижение</strong>
+                            <span>от 2 000 ₽</span>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="img/copy.jpg" alt="Копирайтинг">
+                        <div class="slide-card-body">
+                            <strong>Копирайтинг</strong>
+                            <span>от 800 ₽</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn next" onclick="slideServices(1)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="seller-cta">
+        <div class="container seller-cta-wrapper">
+            <div class="cta-content">
+                <h2>Начните зарабатывать на своих навыках</h2>
+                <p>Присоединяйтесь к сообществу профессионалов и получайте заказы от бизнеса любого масштаба.</p>
+                <a href="#" class="btn-dark" onclick="goCreateKwork()">Создать кворк</a>
+            </div>
+            <div class="cta-image"></div>
+        </div>
+    </section>
+    <div class="page-footer">Спасибо что выбираете нас!</div>
+    <div class="modal-overlay" id="kworkModal">
+        <div class="modal-box">
+            <button class="btn-close-modal" onclick="closeKworkModal()">×</button>
+            <div class="modal-category" id="km-category">Услуга</div>
+            <h2 id="km-title">Название</h2>
+            <img id="km-img" class="modal-img" src="" alt="">
+            <div class="modal-desc" id="km-desc">Описание услуги</div>
+            <div class="modal-price" id="km-price">0 ₽</div>
+            <div class="modal-seller">
+                <img id="km-avatar" src="" alt="">
+                <div>
+                    <strong id="km-seller">Продавец</strong><br>
+                    <span>Топ исполнитель</span>
+                </div>
+            </div>
+            <button class="btn-modal" onclick="orderFromModal()">Заказать</button>
+        </div>
+    </div>
+<script>
+    let allKworks = [];
+    let currentModalKwork = null;
+    function getAvatarSrc(u) {
+        if (u && u.avatar_data) return u.avatar_data;
+        const seed = u ? (u.username || u.seller_name || 'user') : 'user';
+        return 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + seed;
+    }
+    function initHeaderAuth() {
+        const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+        if (user) {
+            const btn = document.getElementById('headerLoginBtn');
+            if (btn) btn.style.display = 'none';
+            const menu = document.getElementById('userMenu');
+            if (menu) {
+                menu.style.display = 'block';
+                document.getElementById('headerAvatar').src = getAvatarSrc(user);
+                document.getElementById('headerUserName').textContent = user.first_name || user.username;
+            }
+        }
+        document.addEventListener('click', function(e) {
+            const dd = document.getElementById('userDropdown');
+            const menu = document.getElementById('userMenu');
+            if (dd && menu && !menu.contains(e.target)) dd.classList.remove('show');
+        });
+    }
+    function logoutUser() {
+        localStorage.removeItem('mw_user');
+        window.location.href = 'index.html';
+    }
+    initHeaderAuth();
+    async function loadKworks() {
+        try {
+            const res = await fetch('/api/kworks');
+            allKworks = await res.json();
+        } catch(e) {
+            allKworks = [
+                { id: 1, title: 'Профессиональный логотип за 24 часа', price: 1500, seller_name: 'ArtDesign', seller_rating: 4.9, category: 'design', image_url: 'img/kwork-logo.png' },
+                { id: 2, title: 'Установка и настройка WordPress', price: 2000, seller_name: 'WebMaster', seller_rating: 5.0, category: 'dev', image_url: 'img/kwork-wordpress.png' },
+                { id: 3, title: '1000 качественных обратных ссылок', price: 3500, seller_name: 'SEO_Pro', seller_rating: 4.7, category: 'seo', image_url: 'img/kwork-seo.png' },
+                { id: 4, title: 'Напишу 3 продающих текста', price: 1000, seller_name: 'CopyWriter', seller_rating: 4.8, category: 'texts', image_url: 'img/kwork-texts.png' },
+                { id: 5, title: 'Баннер для соцсетей (VK, Inst)', price: 500, seller_name: 'SMM_King', seller_rating: 4.6, category: 'design', image_url: 'img/kwork-banner.png' },
+            ];
+        }
+        renderKworks(allKworks);
+    }
+    function renderKworks(kworks) {
+        const grid = document.getElementById('servicesGrid');
+        if (kworks.length === 0) {
+            grid.innerHTML = '<div class="no-results">Ничего не найдено</div>';
+            return;
+        }
+        grid.innerHTML = kworks.map(k => `
+            <div class="card" onclick="openKworkModal(${k.id})">
+                <div class="card-preview" style="background: url('${k.image_url}') center/cover"></div>
+                <div class="card-content">
+                    <div class="card-user">
+                        <div class="user-avatar"></div>
+                        <span class="user-name">${k.seller_name}</span>
+                    </div>
+                    <div class="card-desc">${k.title}</div>
+                    <div class="card-footer">
+                        <span class="card-rating">★ ${k.seller_rating}</span>
+                        <span class="card-price">от ${k.price.toLocaleString()} ₽</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    function searchServices() {
+        const query = document.getElementById('heroSearch').value.trim().toLowerCase();
+        if (!query) { renderKworks(allKworks); return; }
+        const filtered = allKworks.filter(k =>
+            k.title.toLowerCase().includes(query) ||
+            k.seller_name.toLowerCase().includes(query) ||
+            (k.category && k.category.toLowerCase().includes(query))
+        );
+        renderKworks(filtered);
+        document.getElementById('servicesGrid').scrollIntoView({ behavior: 'smooth' });
+    }
+    function searchTag(tag) {
+        document.getElementById('heroSearch').value = tag;
+        searchServices();
+        return false;
+    }
+    document.getElementById('heroSearch').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') searchServices();
+    });
+    function openKworkModal(id) {
+        const k = allKworks.find(kw => kw.id === id);
+        if (!k) return;
+        currentModalKwork = k;
+        document.getElementById('km-title').textContent = k.title;
+        document.getElementById('km-category').textContent = k.category || 'Услуга';
+        document.getElementById('km-img').src = k.image_url;
+        document.getElementById('km-price').textContent = k.price.toLocaleString() + ' ₽';
+        document.getElementById('km-seller').textContent = k.seller_name;
+        document.getElementById('km-avatar').src = 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + k.seller_name;
+        document.getElementById('km-desc').textContent = 'Профессиональная услуга от исполнителя ' + k.seller_name + '. В стоимость входит полный цикл работы с учётом ваших пожеланий и правками.';
+        document.getElementById('kworkModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeKworkModal() {
+        document.getElementById('kworkModal').classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+    document.getElementById('kworkModal').addEventListener('click', e => {
+        if (e.target === document.getElementById('kworkModal')) closeKworkModal();
+    });
+    function orderFromModal() {
+        const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+        if (!user) { window.location.href = 'login.html'; return; }
+        if (currentModalKwork) {
+            window.location.href = 'message.html?seller=' + encodeURIComponent(currentModalKwork.seller_name);
+        }
+    }
+    function goCreateKwork() {
+        const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+        if (!user) { window.location.href = 'login.html'; return; }
+        window.location.href = 'create.html';
+    }
+    function slideServices(dir) {
+        const track = document.getElementById('servicesSlider');
+        const cardWidth = track.querySelector('.slide-card').offsetWidth + 20;
+        track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+    }
+    window.onload = loadKworks;
+</script>
+</body>
+</html>

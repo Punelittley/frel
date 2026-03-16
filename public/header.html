@@ -1,0 +1,345 @@
+<style>
+    .header {
+        background: #fff;
+        border-bottom: 1px solid #f0f0f0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+    }
+
+    .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo img {
+        height: 36px;
+        width: auto;
+    }
+
+    .nav-group {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #74767e;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #000;
+    }
+
+    .nav-link.active-link {
+        color: #1dbf73 !important;
+    }
+
+    .btn-login {
+        padding: 8px 24px;
+        border: 1px solid #000;
+        border-radius: 6px;
+        color: #000;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    .btn-profile {
+        padding: 8px 24px;
+        background: #1dbf73;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        display: none;
+    }
+
+    .header-categories {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-top: 1px solid #f9f9f9;
+    }
+
+    .header-categories a {
+        font-size: 13px;
+        color: #74767e;
+        text-decoration: none;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+
+    .user-menu {
+        position: relative;
+        display: none;
+    }
+
+    .user-menu-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 6px 16px;
+        border: 1px solid #e4e5e7;
+        border-radius: 8px;
+        background: #fff;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .user-menu-btn img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+
+    .user-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 8px;
+        background: #fff;
+        border: 1px solid #e4e5e7;
+        border-radius: 10px;
+        display: none;
+        min-width: 200px;
+        z-index: 100;
+    }
+
+    .user-dropdown.show {
+        display: block;
+    }
+
+    .user-dropdown a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        text-decoration: none;
+        color: #404145;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.2s;
+    }
+
+    .user-dropdown a:hover {
+        background: #f9f9f9;
+        color: #1dbf73;
+    }
+
+    .user-dropdown .divider {
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .user-dropdown .logout {
+        color: #e74c3c;
+    }
+
+    .user-dropdown .arrow {
+        font-size: 11px;
+        color: #ccc;
+        transition: 0.2s;
+    }
+
+    .user-dropdown a:hover .arrow {
+        color: #1dbf73;
+    }
+
+    .dropdown-icon {
+        margin-right: 8px;
+        color: #1dbf73;
+        font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+        .header-top {
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .logo {
+            order: 1;
+        }
+
+        .logo img {
+            height: 30px;
+        }
+
+        .nav-group {
+            order: 2;
+            gap: 12px;
+        }
+
+        .nav-link {
+            font-size: 13px;
+        }
+
+        .btn-login,
+        .btn-profile {
+            padding: 6px 14px;
+            font-size: 13px;
+        }
+
+        .user-menu-btn {
+            padding: 5px 10px;
+            font-size: 13px;
+            gap: 6px;
+        }
+
+        .user-menu-btn img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .user-dropdown {
+            right: 0;
+            left: auto;
+            min-width: 200px;
+            z-index: 9999;
+        }
+
+        .header-categories {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 14px;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+        }
+
+        .header-categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .header-categories a {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header-top {
+            padding: 8px 0;
+            gap: 8px;
+        }
+
+        .logo img {
+            height: 24px;
+        }
+
+        .nav-group {
+            order: 3;
+            flex: 1 1 100%;
+            justify-content: space-between;
+        }
+
+        .user-menu {
+            order: 2;
+        }
+
+        .btn-login,
+        .btn-profile {
+            order: 2;
+        }
+
+        .nav-link {
+            font-size: 12px;
+        }
+
+        .btn-login,
+        .btn-profile {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .user-menu-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            gap: 4px;
+        }
+
+        .user-menu-btn img {
+            width: 26px;
+            height: 26px;
+        }
+
+        .user-dropdown {
+            position: fixed;
+            top: auto;
+            right: 12px;
+            left: 12px;
+            width: auto;
+            min-width: unset;
+            border-radius: 10px;
+
+        }
+
+        .header-categories {
+            padding: 8px 0;
+            gap: 12px;
+        }
+
+        .header-categories a {
+            font-size: 11px;
+        }
+    }
+</style>
+
+<header class="header">
+    <div class="container">
+        <div class="header-top">
+            <a href="index.html" class="logo">
+                <img src="img/Freelance.svg" alt="Freelance логотип">
+            </a>
+            <nav class="nav-group">
+                <a href="exchange.html" class="nav-link" data-page="exchange">Биржа</a>
+                <a href="projects.html" class="nav-link" data-page="projects">Проекты</a>
+                <a href="education.html" class="nav-link" data-page="education">Обучение</a>
+            </nav>
+            <div class="nav-group">
+                <a href="login.html" class="btn-login" id="headerLoginBtn">Войти</a>
+
+                <div class="user-menu" id="userMenu">
+                    <div class="user-menu-btn"
+                        onclick="document.getElementById('userDropdown').classList.toggle('show')">
+                        <img id="headerAvatar" src="" alt="">
+                        <span id="headerUserName">User</span>
+                        <span style="font-size:10px;color:#999">▼</span>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="profile-2.html">Мой профиль</a>
+                        <a href="profile-2.html#orders">Мои заказы</a>
+                        <a href="profile-2.html#settings">Настройки</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout" onclick="logoutUser()">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-categories">
+            <a href="exchange.html?cat=design">Дизайн</a>
+            <a href="exchange.html?cat=dev">Разработка IT</a>
+            <a href="exchange.html?cat=texts">Тексты</a>
+            <a href="exchange.html?cat=seo">SEO</a>
+            <a href="exchange.html?cat=ads">Реклама</a>
+            <a href="exchange.html?cat=video">Видео</a>
+            <a href="exchange.html">Все категории</a>
+        </div>
+    </div>
+</header>

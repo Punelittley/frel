@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="styles/exchange_info.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   
+</head>
+<style>
+    .project-layout {
+    max-width: 1100px;
+    margin: 50px auto 60px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #74767e;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: #1dbf73;
+}
+
+.detail-card {
+    background: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 0;
+    padding: 40px;
+}
+
+.detail-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.detail-category {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #1dbf73;
+    background: rgba(29, 191, 115, 0.08);
+    padding: 4px 12px;
+    border-radius: 0;
+}
+
+.detail-status {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 0;
+    background: #e8f9f0;
+    color: #1dbf73;
+}
+
+.detail-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.detail-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 24px;
+}
+
+.detail-price span {
+    font-size: 14px;
+    color: #999;
+    font-weight: 500;
+}
+
+.detail-section {
+    margin-bottom: 28px;
+}
+
+.detail-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.detail-section p {
+    font-size: 15px;
+    color: #62646a;
+    line-height: 1.7;
+}
+
+.detail-skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.detail-skills .skill-tag {
+    padding: 6px 16px;
+    background: #f7f7f9;
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #62646a;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+}
+
+.detail-meta i {
+    margin-right: 6px;
+    color: #1dbf73;
+}
+
+.client-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 0;
+    margin-bottom: 28px;
+}
+
+.client-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #eee;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.client-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.client-info strong {
+    font-size: 15px;
+    display: block;
+    color: #222;
+}
+
+.client-info span {
+    font-size: 13px;
+    color: #999;
+}
+
+.btn-respond {
+    display: inline-block;
+    background: #1dbf73;
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 0;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.btn-respond:hover {
+    background: #19a463;
+    transform: scale(1.02);
+}
+
+.btn-respond:disabled,
+.btn-respond.responded {
+    background: #ccc;
+    cursor: default;
+    transform: none;
+}
+
+.response-success {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background: #e8f9f0;
+    border-radius: 0;
+    color: #1dbf73;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.sidebar-right .card {
+    background: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 0;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.sidebar-right .card-title {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-right .card-title i {
+    color: #1dbf73;
+}
+
+.sidebar-right .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-right .info-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 13px;
+}
+
+.sidebar-right .info-list li:last-child {
+    border-bottom: none;
+}
+
+.sidebar-right .info-list li i {
+    color: #1dbf73;
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar-right .info-list .lbl {
+    color: #999;
+    flex: 1;
+}
+
+.sidebar-right .info-list .val {
+    font-weight: 600;
+    color: #222;
+}
+
+.similar-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+
+.similar-item:last-child {
+    border-bottom: none;
+}
+
+.similar-item:hover .sim-title {
+    color: #1dbf73;
+}
+
+.sim-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+    transition: 0.2s;
+}
+
+.sim-price {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1dbf73;
+}
+
+.sim-meta {
+    font-size: 11px;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .project-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 30px auto 40px;
+    }
+
+    .detail-card {
+        padding: 24px;
+    }
+
+    .detail-title {
+        font-size: 20px;
+    }
+
+    .detail-price {
+        font-size: 24px;
+    }
+
+    .detail-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-layout {
+        margin: 20px auto 30px;
+    }
+
+    .detail-card {
+        padding: 16px;
+    }
+
+    .detail-title {
+        font-size: 18px;
+    }
+
+    .detail-price {
+        font-size: 20px;
+    }
+
+    .detail-top {
+        flex-direction: column;
+    }
+
+    .detail-skills .skill-tag {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+
+    .client-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+<body>
+    <div id="header-placeholder"></div>
+    <main class="container">
+        <div class="project-layout">
+            <div class="project-main">
+                <a href="exchange.html" class="back-link"><i class="fa fa-arrow-left"></i> Назад к бирже</a>
+
+                <div class="detail-card">
+                    <div class="detail-top">
+                        <span class="detail-category" id="d-category">Загрузка...</span>
+                        <span class="detail-status">Открыт</span>
+                    </div>
+
+                    <div class="detail-title" id="d-title">Загрузка...</div>
+                    <div class="detail-price" id="d-price">— ₽ <span>бюджет проекта</span></div>
+
+                    <div class="detail-meta">
+                        <span><span id="d-offers">0</span> откликов</span>
+                        <span>Опубликовано: <span id="d-date">—</span></span>
+                        <span>Срок: <span id="d-deadline">не указан</span></span>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Описание задания</h3>
+                        <p id="d-desc">Загрузка...</p>
+                    </div>
+
+                    <div class="detail-skills" id="d-skills"></div>
+
+                    <div class="client-card">
+                        <div class="client-avatar">
+                            <img id="d-avatar" src="" alt="">
+                        </div>
+                        <div class="client-info">
+                            <strong id="d-client">Заказчик</strong>
+                            <span>На платформе с 2024</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-respond" id="respondBtn" onclick="respondToProject()">
+                    Откликнуться
+                    </button>
+
+                    <div class="response-success" id="responseSuccess">
+                        <i class="fa fa-check-circle" style="margin-right:8px"></i>Ваш отклик отправлен! Заказчик свяжется с вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-right">
+                <div class="card">
+                    <div class="card-title">Детали</div>
+                    <ul class="info-list">
+                        <li></i><span class="lbl">Бюджет</span><span class="val" id="s-price">—</span></li>
+                        <li></i><span class="lbl">Срок</span><span class="val" id="s-deadline">—</span></li>
+                        <li></i><span class="lbl">Откликов</span><span class="val" id="s-offers">—</span></li>
+                        <li></i><span class="lbl">Категория</span><span class="val" id="s-category">—</span></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"></i> Заказчик</div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <div style="width:42px;height:42px;border-radius:50%;overflow:hidden;background:#eee;flex-shrink:0;">
+                            <img id="s-avatar" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                        <div>
+                            <div style="font-weight:700;font-size:14px;" id="s-client">—</div>
+                            <div style="font-size:12px;color:#999;">На платформе с 2024</div>
+                        </div>
+                    </div>
+                    <button onclick="respondToProject()" style="width:100%;padding:11px;background:#1dbf73;color:#fff;border:none;border-radius:0;font-weight:700;font-size:14px;cursor:pointer;transition:0.2s;">
+                       Написать
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Похожие заказы</div>
+                    <div id="similarProjects">
+                        <div style="text-align:center;color:#ccc;font-size:13px;padding:16px 0;">Загрузка...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+
+    <div class="page-footer">Спасибо что выбираете нас!</div>
+        </div>
+    </footer>
+
+    <script>
+        const USER_IMAGES = {
+            'aleksei_dev': '/img/11.png',
+            'marina_design': '/img/7.png',
+            'ivan_seo': '/img/12.png',
+            'olga_texts': '/img/8.png',
+            'dmitry_ads': '/img/13.png',
+            'elena_dev': '/img/9.png',
+            'sergey_design': '/img/13.png',
+            'anna_seo': '/img/14.png',
+        };
+
+        function getUserAvatar(username) {
+            return USER_IMAGES[username] || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + username;
+        }
+
+        const LOCAL_PROJECTS = [
+            { id: 1, title: 'Разработка интернет-магазина на React', description: 'Нужен полноценный интернет-магазин с корзиной, оплатой и админ-панелью. Дизайн готов в Figma. Адаптив обязателен.', price: 85000, category: 'dev', category_label: 'Разработка', skills: ['React', 'Node.js', 'PostgreSQL', 'TypeScript'], offers: 12, created_at: '2025-05-28', author: 'aleksei_dev' },
+            { id: 2, title: 'Дизайн мобильного приложения для доставки еды', description: 'Требуется UI/UX дизайн для мобильного приложения доставки. 15-20 экранов, iOS + Android. Референсы предоставлю.', price: 45000, category: 'design', category_label: 'Дизайн', skills: ['Figma', 'UI/UX', 'Mobile', 'Prototyping'], offers: 8, created_at: '2025-05-27', author: 'marina_design' },
+            { id: 3, title: 'SEO-продвижение сайта автосервиса', description: 'Нужно вывести сайт автосервиса в ТОП-10 по ключевым запросам в Москве. Текущие позиции 30-50.', price: 30000, category: 'seo', category_label: 'SEO', skills: ['SEO', 'Аналитика', 'Google Ads', 'Яндекс'], offers: 5, created_at: '2025-05-26', author: 'ivan_seo' },
+            { id: 4, title: 'Написание статей для блога IT-компании', description: 'Нужны 10 экспертных статей по 3000-5000 символов на тему кибербезопасности и разработки ПО. С SEO-оптимизацией.', price: 25000, category: 'texts', category_label: 'Тексты', skills: ['Копирайтинг', 'SEO-тексты', 'IT', 'Блог'], offers: 14, created_at: '2025-05-25', author: 'olga_texts' },
+            { id: 5, title: 'Настройка рекламных кампаний в Яндекс.Директ', description: 'Настройка контекстной рекламы для стоматологической клиники. Бюджет 50 000₽/мес. Нужна аналитика и оптимизация.', price: 20000, category: 'ads', category_label: 'Реклама', skills: ['Яндекс.Директ', 'Аналитика', 'A/B тесты'], offers: 7, created_at: '2025-05-24', author: 'dmitry_ads' },
+            { id: 6, title: 'Верстка лендинга для онлайн-школы', description: 'Pixel-perfect верстка по макету из Figma. Адаптив на все устройства. Анимации при скролле. Подключение форм.', price: 15000, category: 'dev', category_label: 'Разработка', skills: ['HTML', 'CSS', 'JavaScript', 'GSAP'], offers: 19, created_at: '2025-05-23', author: 'elena_dev' },
+            { id: 7, title: 'Редизайн корпоративного сайта', description: 'Полный редизайн сайта строительной компании. 8 страниц, современный стиль, упор на конверсию. Все исходники в Figma.', price: 60000, category: 'design', category_label: 'Дизайн', skills: ['Figma', 'Web-дизайн', 'Прототипы', 'Брендинг'], offers: 6, created_at: '2025-05-22', author: 'sergey_design' },
+            { id: 8, title: 'Аудит и оптимизация сайта для поисковиков', description: 'Полный технический и контентный SEO-аудит. Формирование стратегии продвижения на 6 месяцев. Отчёт и рекомендации.', price: 18000, category: 'seo', category_label: 'SEO', skills: ['SEO-аудит', 'Screaming Frog', 'Ahrefs', 'Техническое SEO'], offers: 3, created_at: '2025-05-21', author: 'anna_seo' },
+            { id: 9, title: 'Разработка Telegram-бота для записи клиентов', description: 'Бот для автоматической записи клиентов в салон красоты. Интеграция с Google Календарём. Напоминания и уведомления.', price: 35000, category: 'dev', category_label: 'Разработка', skills: ['Python', 'Telegram API', 'PostgreSQL', 'Google API'], offers: 9, created_at: '2025-05-20', author: 'aleksei_dev' },
+            { id: 10, title: 'Создание презентации для инвесторов', description: 'Дизайн питч-дека на 20 слайдов для стартапа в финтехе. Инфографика, графики, современный минималистичный стиль.', price: 12000, category: 'design', category_label: 'Дизайн', skills: ['Презентации', 'PowerPoint', 'Figma', 'Инфографика'], offers: 11, created_at: '2025-05-19', author: 'marina_design' },
+            { id: 11, title: 'Контент-план и тексты для соцсетей', description: 'Разработка контент-плана на 1 месяц для Instagram и Telegram. 30 постов + 10 сторис. Тематика — фитнес.', price: 15000, category: 'texts', category_label: 'Тексты', skills: ['SMM', 'Копирайтинг', 'Контент-план', 'Instagram'], offers: 16, created_at: '2025-05-18', author: 'olga_texts' },
+            { id: 12, title: 'Настройка таргетированной рекламы VK', description: 'Запуск и ведение рекламных кампаний в VK для интернет-магазина одежды. Создание креативов, тестирование аудиторий.', price: 25000, category: 'ads', category_label: 'Реклама', skills: ['VK Ads', 'Таргетинг', 'Креативы', 'A/B тесты'], offers: 4, created_at: '2025-05-17', author: 'dmitry_ads' },
+            { id: 13, title: 'Бэкенд API для мобильного приложения', description: 'Разработка REST API на Node.js для приложения трекера задач. Авторизация JWT, CRUD, WebSocket уведомления.', price: 55000, category: 'dev', category_label: 'Разработка', skills: ['Node.js', 'Express', 'MongoDB', 'WebSocket'], offers: 7, created_at: '2025-05-16', author: 'elena_dev' },
+            { id: 14, title: 'Логотип и фирменный стиль для кофейни', description: 'Разработка логотипа, цветовой палитры, типографики и основных носителей бренда для новой кофейни в центре города.', price: 20000, category: 'design', category_label: 'Дизайн', skills: ['Логотип', 'Брендинг', 'Illustrator', 'Фирменный стиль'], offers: 22, created_at: '2025-05-15', author: 'sergey_design' },
+            { id: 15, title: 'Продвижение канала YouTube', description: 'SEO-оптимизация видео, подбор ключевых слов, оформление превью и описаний для канала о путешествиях. 20 видео.', price: 22000, category: 'seo', category_label: 'SEO', skills: ['YouTube SEO', 'VidIQ', 'Превью', 'Ключевые слова'], offers: 8, created_at: '2025-05-14', author: 'anna_seo' },
+        ];
+
+        function getAvatarSrc(u) {
+            if (u && u.avatar_data) return u.avatar_data;
+            return 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (u ? u.username : 'user');
+        }
+
+        function initHeaderAuth() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (user) {
+                document.getElementById('headerLoginBtn').style.display = 'none';
+                const menu = document.getElementById('userMenu');
+                menu.style.display = 'block';
+                document.getElementById('headerAvatar').src = getAvatarSrc(user);
+                document.getElementById('headerUserName').textContent = user.first_name || user.username;
+            }
+            document.addEventListener('click', function(e) {
+                const dd = document.getElementById('userDropdown');
+                const menu = document.getElementById('userMenu');
+                if (dd && menu && !menu.contains(e.target)) dd.classList.remove('show');
+            });
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('mw_user');
+            window.location.href = 'index.html';
+        }
+
+        fetch('header.html').then(r => r.text()).then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            const path = window.location.pathname.split("/").pop().replace(".html","");
+            const link = document.querySelector('.nav-link[data-page="' + path + '"]');
+            if (link) link.classList.add('active-link');
+            initHeaderAuth();
+        });
+
+        const projectId = new URLSearchParams(window.location.search).get('id');
+
+        async function loadProject() {
+            if (!projectId) {
+                document.getElementById('d-title').textContent = 'Проект не найден';
+                return;
+            }
+            try {
+                const res = await fetch('/api/projects/' + projectId);
+                if (!res.ok) throw new Error('Not found');
+                const p = await res.json();
+                renderProject(p);
+            } catch(e) {
+                const p = LOCAL_PROJECTS.find(pr => String(pr.id) === String(projectId));
+                if (p) {
+                    renderProject(p);
+                } else {
+                    document.getElementById('d-title').textContent = 'Проект не найден';
+                    document.getElementById('d-desc').textContent = 'Не удалось загрузить данные проекта.';
+                    document.getElementById('d-category').textContent = '—';
+                }
+            }
+        }
+
+        function renderProject(p) {
+            const authorName = p.author || p.client_name || 'Заказчик';
+            const authorAvatar = getUserAvatar(authorName);
+
+            document.getElementById('d-title').textContent = p.title;
+            document.getElementById('d-category').textContent = p.category_label || p.category || '—';
+            document.getElementById('d-price').innerHTML = (p.price || 0).toLocaleString() + ' ₽ <span>бюджет проекта</span>';
+            document.getElementById('d-desc').textContent = p.description || 'Описание отсутствует';
+            document.getElementById('d-offers').textContent = p.offers || 0;
+            document.getElementById('d-date').textContent = p.created_at ? new Date(p.created_at).toLocaleDateString('ru-RU') : 'сегодня';
+            document.getElementById('d-deadline').textContent = p.deadline || 'не указан';
+            document.getElementById('d-client').textContent = authorName;
+            document.getElementById('d-avatar').src = authorAvatar;
+            const skillsContainer = document.getElementById('d-skills');
+            const skills = p.skills ? (typeof p.skills === 'string' ? JSON.parse(p.skills) : p.skills) : [];
+            skillsContainer.innerHTML = skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+            document.title = p.title + ' — MW.';
+            document.getElementById('s-price').textContent = (p.price || 0).toLocaleString() + ' ₽';
+            document.getElementById('s-deadline').textContent = p.deadline || 'Не указан';
+            document.getElementById('s-offers').textContent = p.offers || 0;
+            document.getElementById('s-category').textContent = p.category_label || p.category || '—';
+            document.getElementById('s-client').textContent = authorName;
+            document.getElementById('s-avatar').src = authorAvatar;
+        }
+
+        async function loadSimilar() {
+            try {
+                const res = await fetch('/api/projects');
+                if (!res.ok) throw new Error('err');
+                const all = await res.json();
+                const others = all.filter(p => String(p.id) !== String(projectId)).slice(0, 3);
+                renderSimilar(others);
+            } catch(e) {
+                const others = LOCAL_PROJECTS.filter(p => String(p.id) !== String(projectId)).slice(0, 3);
+                renderSimilar(others);
+            }
+        }
+
+        function renderSimilar(items) {
+            if (!items.length) {
+                document.getElementById('similarProjects').innerHTML = '<div style="text-align:center;color:#ccc;font-size:13px;padding:16px 0;">Нет похожих заказов</div>';
+                return;
+            }
+            document.getElementById('similarProjects').innerHTML = items.map(p => `
+                <a href="exchange_info.html?id=${p.id}" class="similar-item" style="display:block;text-decoration:none;">
+                    <div class="sim-title">${p.title}</div>
+                    <div class="sim-price">${(p.price||0).toLocaleString()} ₽</div>
+                    <div class="sim-meta">${p.offers||0} откликов</div>
+                </a>
+            `).join('');
+        }
+
+        function respondToProject() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const btn = document.getElementById('respondBtn');
+            btn.disabled = true;
+            btn.classList.add('responded');
+            btn.innerHTML = '<i class="fa fa-check" style="margin-right:8px"></i>Отклик отправлен';
+            document.getElementById('responseSuccess').style.display = 'block';
+            const clientName = document.getElementById('d-client').textContent || 'Заказчик';
+            const clientAvatar = document.getElementById('d-avatar').src || '';
+            window.location.href = 'message.html?to=' + encodeURIComponent(clientName) + '&avatar=' + encodeURIComponent(clientAvatar);
+        }
+
+        window.onload = () => { loadProject(); loadSimilar(); };
+    </script>
+</body>
+</html>

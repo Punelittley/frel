@@ -1,0 +1,393 @@
+.edu-hero {
+    padding: 70px 0 50px;
+    text-align: center;
+    background: radial-gradient(circle at center, #ffffff 0%, #f7f7f9 100%);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.edu-hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.edu-hero p {
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.role-switch {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 40px auto 0;
+    background: #f0f0f0;
+    border-radius: 0;
+    padding: 4px;
+    width: fit-content;
+}
+
+.role-btn {
+    padding: 12px 32px;
+    border-radius: 0;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    background: transparent;
+    color: #74767e;
+}
+
+.role-btn.active {
+    background: #fff;
+    color: #222;
+}
+
+.progress-bar-container {
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.progress-track {
+    background: #f0f0f0;
+    height: 8px;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #1dbf73;
+    border-radius: 0;
+    transition: width 0.5s ease;
+}
+
+.accordion-section {
+    max-width: 700px;
+    margin: 40px auto 60px;
+}
+
+.accordion-item {
+    border: 1px solid #e4e5e7;
+    border-radius: 0;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.accordion-item.completed {
+    border-color: #1dbf73;
+}
+
+.accordion-item.completed .acc-status {
+    background: #1dbf73;
+    color: #fff;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.accordion-header:hover {
+    background: #fafafa;
+}
+
+.acc-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.accordion-item.completed .acc-number {
+    background: #e8f9f0;
+    color: #1dbf73;
+}
+
+.acc-title {
+    flex: 1;
+    font-weight: 700;
+    font-size: 16px;
+    color: #222;
+}
+
+.acc-status {
+    padding: 4px 12px;
+    border-radius: 0;
+    font-size: 11px;
+    font-weight: 700;
+    background: #f0f0f0;
+    color: #999;
+}
+
+.acc-chevron {
+    color: #ccc;
+    transition: transform 0.3s;
+    font-size: 14px;
+}
+
+.accordion-item.open .acc-chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 24px;
+}
+
+.accordion-item.open .accordion-body {
+    max-height: 400px;
+    padding: 0 24px 24px;
+}
+
+.acc-desc {
+    font-size: 15px;
+    color: #62646a;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.acc-tips {
+    list-style: none;
+    padding: 0;
+}
+
+.acc-tips li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: #404145;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.acc-tips li i {
+    color: #1dbf73;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.btn-complete {
+    margin-top: 12px;
+    padding: 10px 24px;
+    border-radius: 0;
+    border: 1px solid #1dbf73;
+    background: transparent;
+    color: #1dbf73;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-complete:hover {
+    background: #1dbf73;
+    color: #fff;
+}
+
+.accordion-item.completed .btn-complete {
+    display: none;
+}
+
+.faq-section {
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.faq-section h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.faq-item {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.faq-q {
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.faq-q:hover {
+    color: #1dbf73;
+}
+
+.faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    font-size: 14px;
+    color: #62646a;
+    line-height: 1.6;
+}
+
+.faq-item.open .faq-a {
+    max-height: 200px;
+    padding-bottom: 18px;
+}
+
+.faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+}
+
+.faq-chevron {
+    transition: transform 0.3s;
+    color: #ccc;
+}
+
+.edu-cta {
+    background: linear-gradient(135deg, #222 0%, #444 100%);
+    border-radius: 0;
+    padding: 60px;
+    text-align: center;
+    margin: 0 auto 60px;
+    max-width: 800px;
+    color: #fff;
+}
+
+.edu-cta h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.edu-cta p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.edu-cta a {
+    display: inline-block;
+    background: #1dbf73;
+    color: #fff;
+    padding: 14px 36px;
+    border-radius: 0;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.edu-cta a:hover {
+    background: #19a463;
+    transform: scale(1.03);
+}
+
+.page-footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 13px;
+    color: #999;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .edu-hero {
+        padding: 50px 0 30px;
+    }
+
+    .edu-hero h1 {
+        font-size: 26px;
+    }
+
+    .edu-hero p {
+        font-size: 15px;
+    }
+
+    .role-switch {
+        margin: 24px auto 0;
+    }
+
+    .role-btn {
+        padding: 10px 24px;
+        font-size: 13px;
+    }
+
+    .accordion-section {
+        margin: 30px auto 40px;
+    }
+
+    .accordion-header {
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    .acc-title {
+        font-size: 14px;
+    }
+
+    .progress-bar-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .edu-hero {
+        padding: 30px 0 20px;
+    }
+
+    .edu-hero h1 {
+        font-size: 22px;
+    }
+
+    .edu-hero p {
+        font-size: 14px;
+    }
+
+    .role-btn {
+        padding: 8px 18px;
+        font-size: 12px;
+    }
+
+    .accordion-header {
+        padding: 14px 16px;
+    }
+
+    .acc-number {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .acc-title {
+        font-size: 13px;
+    }
+
+    .accordion-section {
+        padding: 0 4px;
+    }
+}

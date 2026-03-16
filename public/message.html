@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="styles/message.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<style>
+    .msg-layout {
+        display: flex;
+        gap: 0;
+        max-width: 1100px;
+        margin: 0 auto;
+        min-height: calc(100vh - 140px);
+    }
+
+    .msg-sidebar {
+        width: 300px;
+        border-right: 1px solid #e4e5e7;
+        background: #fff;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .msg-sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid #e4e5e7;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .msg-sidebar-list {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .chat-history-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        cursor: pointer;
+        transition: background 0.15s;
+        border-bottom: 1px solid #f5f5f5;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .chat-history-item:hover {
+        background: #f9fafb;
+    }
+
+    .chat-history-item.active {
+        background: #f0faf5;
+        border-left: 3px solid #1dbf73;
+    }
+
+    .chat-history-item img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .chat-history-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .chat-history-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .chat-history-last {
+        font-size: 12px;
+        color: #74767e;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .chat-history-time {
+        font-size: 11px;
+        color: #b5b6ba;
+        flex-shrink: 0;
+    }
+
+    .chat-history-empty {
+        padding: 40px 20px;
+        text-align: center;
+        color: #b5b6ba;
+        font-size: 14px;
+    }
+
+    .msg-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .msg-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        border-bottom: 1px solid #e4e5e7;
+        background: #fff;
+    }
+
+    .msg-header img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+    }
+
+    .msg-header-info h2 {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 0 0 2px;
+    }
+
+    .msg-header-info span {
+        font-size: 13px;
+        color: #74767e;
+    }
+
+    .chat-box {
+        flex: 1;
+        background: #f9f9fb;
+        overflow-y: auto;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 300px;
+    }
+
+    .chat-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 300px;
+        color: #b5b6ba;
+    }
+
+    .chat-empty p {
+        font-size: 15px;
+    }
+
+    .msg-bubble {
+        max-width: 70%;
+        padding: 12px 18px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+    .msg-bubble.sent {
+        background: #1dbf73;
+        color: #fff;
+        align-self: flex-end;
+    }
+
+    .msg-bubble.received {
+        background: #fff;
+        color: #222;
+        align-self: flex-start;
+        border: 1px solid #e4e5e7;
+    }
+
+    .msg-bubble .bot-name {
+        font-size: 11px;
+        font-weight: 700;
+        color: #1dbf73;
+        margin-bottom: 4px;
+    }
+
+    .msg-time {
+        font-size: 11px;
+        opacity: 0.7;
+        margin-top: 4px;
+    }
+
+    .msg-input-bar {
+        display: flex;
+        gap: 12px;
+        align-items: flex-end;
+        padding: 16px 24px;
+        background: #fff;
+        border-top: 1px solid #e4e5e7;
+    }
+
+    .msg-input-bar textarea {
+        flex: 1;
+        padding: 14px 18px;
+        border: 1px solid #e4e5e7;
+        font-size: 14px;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+        resize: none;
+        min-height: 48px;
+        max-height: 120px;
+        transition: border-color 0.2s;
+    }
+
+    .msg-input-bar textarea:focus {
+        border-color: #1dbf73;
+    }
+
+    .btn-send {
+        background: #1dbf73;
+        color: #fff;
+        border: none;
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-send:hover {
+        background: #19a463;
+    }
+
+    .msg-sidebar-toggle {
+        display: none;
+        padding: 10px 16px;
+        background: #fff;
+        border: 1px solid #e4e5e7;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 12px 16px 0;
+    }
+
+    @media (max-width: 768px) {
+        .msg-layout {
+            flex-direction: column;
+        }
+
+        .msg-sidebar {
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #e4e5e7;
+        }
+
+        .msg-sidebar.collapsed .msg-sidebar-list {
+            display: none;
+        }
+
+        .msg-sidebar-toggle {
+            display: block;
+        }
+
+        .msg-header {
+            padding: 16px;
+            gap: 12px;
+        }
+
+        .msg-header img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .msg-header-info h2 {
+            font-size: 16px;
+        }
+
+        .chat-box {
+            padding: 16px;
+            min-height: 250px;
+        }
+
+        .msg-bubble {
+            max-width: 85%;
+        }
+
+        .msg-input-bar {
+            padding: 12px 16px;
+            gap: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .msg-bubble {
+            max-width: 90%;
+            padding: 10px 14px;
+            font-size: 13px;
+        }
+
+        .msg-input-bar textarea {
+            padding: 10px 14px;
+            font-size: 13px;
+        }
+
+        .btn-send {
+            width: 42px;
+            height: 42px;
+            font-size: 16px;
+        }
+
+        .chat-history-item {
+            padding: 12px 16px;
+        }
+    }
+
+    .page-footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 13px;
+        color: #999;
+        border-top: 1px solid var(--border-soft);
+        margin-top: 40px;
+    }
+</style>
+
+<body>
+    <div id="header-placeholder"></div>
+    <div class="msg-layout">
+        <div class="msg-sidebar" id="msgSidebar">
+            <div class="msg-sidebar-header">
+                Сообщения
+                <button class="msg-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">Свернуть ▲</button>
+            </div>
+            <div class="msg-sidebar-list" id="chatHistoryList">
+                <div class="chat-history-empty">Нет диалогов</div>
+            </div>
+        </div>
+        <div class="msg-main">
+            <div class="msg-header">
+                <img id="recipientAvatar" src="" alt="">
+                <div class="msg-header-info">
+                    <h2 id="recipientName">Загрузка...</h2>
+                    <span>Личное сообщение</span>
+                </div>
+            </div>
+            <div class="chat-box" id="chatBox">
+                <div class="chat-empty">
+                    <p>Начните диалог — напишите первое сообщение</p>
+                </div>
+            </div>
+            <div class="msg-input-bar">
+                <textarea id="msgInput" placeholder="Напишите сообщение..." rows="1"></textarea>
+                <button class="btn-send" id="btnSend" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">Спасибо что выбираете нас!</div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const recipient = params.get('to') || params.get('seller') || 'Unknown';
+        const avatarFromUrl = params.get('avatar') || '';
+        const currentUser = JSON.parse(localStorage.getItem('mw_user') || 'null');
+        const currentUsername = currentUser ? currentUser.username : '__anonymous__';
+        const STORAGE_KEY = 'mw_messages_' + currentUsername + '_' + recipient;
+        const ALL_CHATS_KEY = 'mw_all_chats_' + currentUsername;
+        const USER_IMAGES = {
+            'aleksei_dev': '/img/11.png', 'marina_design': '/img/7.png',
+            'ivan_seo': '/img/12.png', 'olga_texts': '/img/8.png',
+            'dmitry_ads': '/img/13.png', 'elena_dev': '/img/9.png',
+            'sergey_design': '/img/13.png', 'anna_seo': '/img/14.png',
+        };
+        let messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        messages.forEach(m => m.time = new Date(m.time));
+
+        function getAvatarSrc(u) {
+            if (u && u.avatar_data) return u.avatar_data;
+            return 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (u ? u.username : 'user');
+        }
+        function getRecipientAvatar(name) {
+            if (avatarFromUrl) return avatarFromUrl;
+            if (USER_IMAGES[name]) return USER_IMAGES[name];
+            const chats = getAllChats();
+            const chat = chats.find(c => c.name === name);
+            if (chat && chat.avatar) return chat.avatar;
+            return 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + name;
+        }
+        function initHeaderAuth() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (user) {
+                const btn = document.getElementById('headerLoginBtn');
+                if (btn) btn.style.display = 'none';
+                const menu = document.getElementById('userMenu');
+                if (menu) { menu.style.display = 'block'; document.getElementById('headerAvatar').src = getAvatarSrc(user); document.getElementById('headerUserName').textContent = user.first_name || user.username; }
+            }
+            document.addEventListener('click', function (e) { const dd = document.getElementById('userDropdown'); const menu = document.getElementById('userMenu'); if (dd && menu && !menu.contains(e.target)) dd.classList.remove('show'); });
+        }
+        function logoutUser() { localStorage.removeItem('mw_user'); window.location.href = 'index.html'; }
+        fetch('header.html').then(r => r.text()).then(data => { document.getElementById('header-placeholder').innerHTML = data; initHeaderAuth(); });
+
+        document.getElementById('recipientName').textContent = recipient;
+        document.getElementById('recipientAvatar').src = getRecipientAvatar(recipient);
+        document.getElementById('msgInput').addEventListener('input', function () { this.style.height = 'auto'; this.style.height = Math.min(this.scrollHeight, 120) + 'px'; });
+        document.getElementById('msgInput').addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+
+        function saveMessages() { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages)); }
+        function getAllChats() { return JSON.parse(localStorage.getItem(ALL_CHATS_KEY) || '[]'); }
+        function updateChatHistory(recipientName, lastMessage) {
+            let chats = getAllChats();
+            const idx = chats.findIndex(c => c.name === recipientName);
+            const chatData = { name: recipientName, lastMsg: lastMessage, time: new Date().toISOString(), avatar: getRecipientAvatar(recipientName) };
+            if (idx !== -1) { chats[idx] = chatData; } else { chats.unshift(chatData); }
+            chats.sort((a, b) => new Date(b.time) - new Date(a.time));
+            localStorage.setItem(ALL_CHATS_KEY, JSON.stringify(chats));
+            renderChatHistory();
+        }
+        function renderChatHistory() {
+            const list = document.getElementById('chatHistoryList');
+            const chats = getAllChats();
+            if (chats.length === 0) { list.innerHTML = '<div class="chat-history-empty">Нет диалогов</div>'; return; }
+            list.innerHTML = chats.map(c => {
+                const isActive = c.name === recipient ? ' active' : '';
+                const time = new Date(c.time);
+                const timeStr = time.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                const chatAvatar = c.avatar || getRecipientAvatar(c.name);
+                return `<a href="message.html?to=${encodeURIComponent(c.name)}&avatar=${encodeURIComponent(chatAvatar)}" class="chat-history-item${isActive}">
+                <img src="${chatAvatar}" alt="">
+                <div class="chat-history-info"><div class="chat-history-name">${c.name}</div><div class="chat-history-last">${c.lastMsg || ''}</div></div>
+                <div class="chat-history-time">${timeStr}</div>
+            </a>`;
+            }).join('');
+        }
+        function toggleSidebar() {
+            const sidebar = document.getElementById('msgSidebar');
+            const btn = document.getElementById('sidebarToggle');
+            sidebar.classList.toggle('collapsed');
+            btn.textContent = sidebar.classList.contains('collapsed') ? 'Показать ▼' : 'Свернуть ▲';
+        }
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if (!text) return;
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (!user) { window.location.href = 'login.html'; return; }
+            messages.push({ text, type: 'sent', time: new Date() });
+            input.value = ''; input.style.height = 'auto';
+            saveMessages(); renderMessages();
+            updateChatHistory(recipient, text);
+        }
+        function renderMessages() {
+            const box = document.getElementById('chatBox');
+            if (messages.length === 0) { box.innerHTML = '<div class="chat-empty"><p>Начните диалог — напишите первое сообщение</p></div>'; return; }
+            box.innerHTML = messages.map(m => {
+                const time = new Date(m.time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                const botLabel = m.botName ? `<div class="bot-name">${m.botName}</div>` : '';
+                return `<div class="msg-bubble ${m.type}">${botLabel}${m.text}<div class="msg-time">${time}</div></div>`;
+            }).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+        renderMessages();
+        renderChatHistory();
+        if (messages.length > 0) { updateChatHistory(recipient, messages[messages.length - 1].text); }
+    </script>
+</body>
+
+</html>

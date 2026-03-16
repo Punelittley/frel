@@ -1,0 +1,196 @@
+
+        * { box-sizing: border-box; }
+
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 36px;
+            width: auto;
+        }
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #74767e;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .nav-link:hover { color: #000; }
+        .nav-link.active-link { color: #1dbf73 !important; }
+        .btn-login {
+            padding: 8px 24px;
+            border: 1px solid #000;
+            border-radius: 6px;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .btn-profile {
+            padding: 8px 24px;
+            background: #1dbf73;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+        }
+        .header-categories {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid #f9f9f9;
+        }
+        .header-categories a {
+            font-size: 13px;
+            color: #74767e;
+            text-decoration: none;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .user-menu { position: relative; display: none; }
+        .user-menu-btn {
+            display: flex; align-items: center; gap: 8px; cursor: pointer;
+            padding: 6px 16px; border: 1px solid #e4e5e7; border-radius: 8px; background: #fff;
+            font-weight: 600; font-size: 14px;
+        }
+        .user-menu-btn img { width: 28px; height: 28px; border-radius: 50%; }
+        .user-dropdown {
+            position: absolute; top: 100%; right: 0; margin-top: 8px;
+            background: #fff; border: 1px solid #e4e5e7; border-radius: 10px;
+            display: none; min-width: 200px; z-index: 100;
+        }
+        .user-dropdown.show { display: block; }
+        .user-dropdown a {
+            display: flex; align-items: center; justify-content: center;
+            padding: 12px 18px; text-decoration: none;
+            color: #404145; font-size: 14px; font-weight: 500; transition: 0.2s;
+        }
+        .user-dropdown a:hover { background: #f9f9f9; color: #1dbf73; }
+        .user-dropdown .divider { border-top: 1px solid #f0f0f0; }
+        .user-dropdown .logout { color: #e74c3c; }
+
+        .access-gate {
+            min-height: calc(100vh - 120px); display: flex; align-items: center; justify-content: center;
+            background: #fff;
+        }
+        .access-box {
+            background: #fff; border: 1px solid #e4e5e7; border-radius: 0; padding: 48px 40px; width: 420px; max-width: 90%;
+            text-align: center; 
+        }
+        .access-box h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .access-box p { font-size: 14px; color: #74767e; margin-bottom: 28px; }
+        .pin-inputs { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; }
+        .pin-inputs input {
+            width: 52px; height: 60px; text-align: center; font-size: 24px; font-weight: 800;
+            border: 2px solid #e4e5e7; border-radius: 0; outline: none;
+            transition: 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .pin-inputs input:focus { border-color: #1dbf73;}
+        .pin-inputs input.error { border-color: #ff4757; animation: shake 0.4s; }
+        @keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-8px); } 75% { transform:translateX(8px); } }
+        .access-error { color: #ff4757; font-size: 13px; font-weight: 600; display: none; margin-bottom: 16px; }
+        .access-hint { font-size: 12px; color: #bbb; margin-top: 16px; }
+
+        .admin-panel { display: none; }
+        .admin-nav {
+            display: flex; gap: 4px; padding: 12px 0;
+            border-bottom: 1px solid #e4e5e7;
+        }
+        .admin-nav .nav-item {
+            padding: 10px 20px;
+            border-radius: 0; font-size: 14px; font-weight: 600; color: #62646a;
+            cursor: pointer; transition: 0.2s;
+        }
+        .admin-nav .nav-item:hover { background: #f0f0f0; }
+        .admin-nav .nav-item.active { background: #1dbf73; color: #fff; }
+        .admin-content { padding: 32px 0; min-height: calc(100vh - 200px); }
+
+        .section-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 24px; }
+        .stat-cards { display: flex; gap: 16px; margin-bottom: 32px; }
+        .stat-card {
+            border: 1px solid #e4e5e7; padding: 20px 24px; background: #fff;
+            min-width: 180px;
+        }
+        .stat-card .sc-label { font-size: 13px; color: #74767e; font-weight: 600; margin-bottom: 6px; }
+        .stat-card .sc-value { font-size: 32px; font-weight: 800; line-height: 1; }
+        .stat-card .sc-change { font-size: 12px; color: #999; margin-top: 4px; }
+
+        .admin-card {
+            border: 1px solid #e4e5e7; background: #fff; overflow: hidden;
+        }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table th {
+            text-align: left; padding: 14px 16px; font-size: 12px; font-weight: 700;
+            color: #999; text-transform: uppercase; background: #fafafa; border-bottom: 1px solid #e4e5e7;
+        }
+        .admin-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
+        .admin-table tr:hover { background: #fafafa; }
+        .admin-table .badge { padding: 3px 10px; font-size: 11px; font-weight: 700; }
+        .badge-active { background: #e8f9f0; color: #1dbf73; }
+        .badge-pending { background: #fff8e7; color: #f5a623; }
+        .badge-blocked { background: #ffe8e8; color: #ff4757; }
+        .btn-action {
+            padding: 6px 14px; border: 1px solid #e4e5e7;
+            background: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: 0.2s; color: #62646a;
+        }
+        .btn-action:hover { border-color: #1dbf73; color: #1dbf73; }
+        .btn-action.danger { color: #ff4757; border-color: #ffcdd2; }
+        .btn-action.danger:hover { border-color: #ff4757; background: #fff5f5; }
+        .section-tab { display: none; }
+        .section-tab.active { display: block; }
+
+        @media (max-width: 768px) {
+            .header-top { flex-wrap: wrap; gap: 10px; padding: 10px 0; }
+            .logo img { height: 30px; }
+            .nav-group { gap: 12px; }
+            .nav-link { font-size: 13px; }
+            .btn-login, .btn-profile { padding: 6px 14px; font-size: 13px; }
+            .header-categories {
+                overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+                gap: 14px; justify-content: flex-start; flex-wrap: nowrap;
+            }
+            .header-categories::-webkit-scrollbar { display: none; }
+            .header-categories a { font-size: 12px; }
+            .access-box { padding: 32px 24px; width: 90%; }
+            .access-box h2 { font-size: 18px; }
+            .pin-inputs input { width: 44px; height: 50px; font-size: 20px; }
+            .stat-cards { flex-direction: column; }
+            .admin-table-wrap { overflow-x: auto; }
+            .admin-table { min-width: 600px; }
+        }
+        @media (max-width: 480px) {
+            .header-top { padding: 8px 0; gap: 8px; }
+            .logo img { height: 24px; }
+            .nav-group { flex: 1 1 100%; justify-content: space-between; }
+            .nav-link { font-size: 12px; }
+            .btn-login, .btn-profile { padding: 5px 10px; font-size: 12px; }
+            .access-box { padding: 24px 16px; }
+            .pin-inputs { gap: 6px; }
+            .pin-inputs input { width: 40px; height: 46px; font-size: 18px; }
+            .section-title { font-size: 22px; }
+        }

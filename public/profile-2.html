@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<style>
+    .profile-cover {
+        height: 200px;
+        background: linear-gradient(135deg, #1dbf73 0%, #14a361 50%, #0d8c4f 100%);
+        position: relative;
+    }
+
+    .profile-container {
+        max-width: 1100px;
+        margin: -70px auto 0;
+        padding: 0 20px 60px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .profile-header-card {
+        background: #fff;
+        border: 1px solid #e4e5e7;
+        padding: 0 32px 24px;
+        margin-bottom: 24px;
+    }
+
+    .profile-top-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 24px;
+        transform: translateY(-40px);
+        margin-bottom: -16px;
+    }
+
+    .profile-avatar-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .profile-avatar {
+        width: 130px;
+        height: 130px;
+        border: 5px solid #fff;
+        background: #f0f0f0;
+        overflow: hidden;
+    }
+
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .avatar-change-btn {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 36px;
+        height: 36px;
+        background: #1dbf73;
+        color: #fff;
+        border: 3px solid #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        z-index: 5;
+    }
+
+    .avatar-change-btn:hover {
+        background: #19a463;
+    }
+
+    .avatar-change-btn input {
+        display: none;
+    }
+
+    .profile-identity {
+        flex: 1;
+        padding-bottom: 8px;
+        min-width: 0;
+    }
+
+    .profile-name {
+        font-size: 28px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .badge-verified {
+        background: #1dbf73;
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 10px;
+        font-weight: 700;
+    }
+
+    .badge-role {
+        background: #222;
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 10px;
+        font-weight: 700;
+    }
+
+    .profile-handle {
+        color: #74767e;
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .profile-location {
+        color: #999;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .profile-header-actions {
+        display: flex;
+        gap: 10px;
+        padding-bottom: 8px;
+        flex-shrink: 0;
+    }
+
+    .btn-edit {
+        padding: 10px 20px;
+        border: 1px solid #e4e5e7;
+        background: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn-edit:hover {
+        border-color: #1dbf73;
+        color: #1dbf73;
+    }
+
+    .profile-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .card {
+        background: #fff;
+        border: 1px solid #e4e5e7;
+        padding: 28px;
+        margin-bottom: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .card-title {
+        font-size: 17px;
+        font-weight: 800;
+        margin-bottom: 18px;
+    }
+
+    .bio-text {
+        font-size: 15px;
+        color: #62646a;
+        line-height: 1.7;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+    .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .skill-tag {
+        padding: 6px 16px;
+        background: #f0faf5;
+        border: 1px solid #d0f0e0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1dbf73;
+    }
+
+    .sidebar-strip {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .sidebar-strip .card {
+        margin-bottom: 0;
+    }
+
+    .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .info-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 0;
+        border-bottom: 1px solid #f9f9f9;
+        font-size: 14px;
+    }
+
+    .info-list li:last-child {
+        border-bottom: none;
+    }
+
+    .info-list .lbl {
+        color: #999;
+        flex: 1;
+    }
+
+    .info-list .val {
+        font-weight: 600;
+        color: #222;
+        word-break: break-all;
+    }
+
+    .tab-switch {
+        display: flex;
+        gap: 0;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .tab-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #999;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: 0.2s;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .tab-btn:hover {
+        color: #222;
+    }
+
+    .tab-btn.active {
+        color: #1dbf73;
+        border-bottom-color: #1dbf73;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 30px;
+        color: #999;
+        font-size: 14px;
+    }
+
+    .order-item {
+        padding: 16px;
+        border: 1px solid #e4e5e7;
+        margin-bottom: 12px;
+    }
+
+    .order-item:hover {
+        border-color: #1dbf73;
+    }
+
+    .order-title {
+        font-weight: 700;
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+
+    .order-meta {
+        font-size: 13px;
+        color: #999;
+    }
+
+    .order-price {
+        font-weight: 800;
+        color: #1dbf73;
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.show {
+        display: flex;
+    }
+
+    .modal-box {
+        background: #fff;
+        width: 95%;
+        max-width: 520px;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 36px;
+        animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .modal-box h2 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 24px;
+    }
+
+    .modal-box .form-group {
+        margin-bottom: 16px;
+    }
+
+    .modal-box label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #404145;
+        margin-bottom: 5px;
+    }
+
+    .modal-box input,
+    .modal-box select,
+    .modal-box textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #e4e5e7;
+        font-size: 14px;
+        outline: none;
+        font-family: 'Inter', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .modal-box input:focus,
+    .modal-box select:focus,
+    .modal-box textarea:focus {
+        border-color: #1dbf73;
+    }
+
+    .modal-box textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .btn-save {
+        flex: 2;
+        padding: 13px;
+        background: #1dbf73;
+        color: #fff;
+        border: none;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-save:hover {
+        background: #19a463;
+    }
+
+    .btn-cancel {
+        flex: 1;
+        padding: 13px;
+        background: #f5f5f5;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        color: #666;
+    }
+
+    .modal-avatar-upload {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .modal-avatar-preview {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        background: #f0f0f0;
+        flex-shrink: 0;
+    }
+
+    .modal-avatar-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .modal-avatar-btn {
+        padding: 8px 16px;
+        border: 1px solid #e4e5e7;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        background: #fff;
+    }
+
+    .modal-avatar-btn:hover {
+        border-color: #1dbf73;
+        color: #1dbf73;
+    }
+
+    .edit-error-msg {
+        color: #e74c3c;
+        font-size: 13px;
+        margin-top: 8px;
+        display: none;
+    }
+
+    .form-group .hint {
+        font-size: 12px;
+        color: #999;
+        margin-top: 4px;
+    }
+
+    .page-footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 13px;
+        color: #999;
+        border-top: 1px solid var(--border-soft);
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .profile-cover {
+            height: 150px;
+        }
+
+        .profile-container {
+            margin: -50px auto 0;
+        }
+
+        .profile-header-card {
+            padding: 0 20px 20px;
+        }
+
+        .profile-top-row {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            transform: translateY(-30px);
+            margin-bottom: -8px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            justify-content: center;
+        }
+
+        .profile-header-actions {
+            justify-content: center;
+        }
+
+        .sidebar-strip {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profile-cover {
+            height: 120px;
+        }
+
+        .profile-container {
+            margin: -40px auto 0;
+            padding: 0 12px 40px;
+        }
+
+        .profile-header-card {
+            padding: 0 14px 16px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-width: 3px;
+        }
+
+        .avatar-change-btn {
+            width: 28px;
+            height: 28px;
+            font-size: 11px;
+        }
+
+        .profile-name {
+            font-size: 20px;
+        }
+
+        .badge-verified,
+        .badge-role {
+            font-size: 10px;
+            padding: 2px 8px;
+        }
+
+        .profile-handle {
+            font-size: 13px;
+        }
+
+        .btn-edit {
+            padding: 8px 14px;
+            font-size: 12px;
+        }
+
+        .profile-header-actions {
+            gap: 8px;
+        }
+
+        .card {
+            padding: 16px;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .bio-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card-title {
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .info-list li {
+            font-size: 13px;
+            gap: 8px;
+            padding: 9px 0;
+        }
+
+        .info-list .val {
+            font-size: 13px;
+        }
+
+        .skills-grid {
+            gap: 6px;
+        }
+
+        .skill-tag {
+            padding: 4px 10px;
+            font-size: 12px;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            font-size: 13px;
+        }
+
+        .sidebar-strip {
+            gap: 12px;
+        }
+    }
+</style>
+
+<body>
+    <div id="header-placeholder"></div>
+    <div class="profile-cover"></div>
+    <div class="profile-container">
+        <div class="profile-header-card">
+            <div class="profile-top-row">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar"><img id="pAvatar" src="" alt=""></div>
+                    <label class="avatar-change-btn" title="Сменить аватар"><input type="file" accept="image/*"
+                            onchange="changeAvatarDirect(this)"></label>
+                </div>
+                <div class="profile-identity">
+                    <div class="profile-name"><span id="pName">—</span><span class="badge-verified">Проверен</span><span
+                            class="badge-role" id="pRoleBadge">Исполнитель</span></div>
+                    <div class="profile-handle" id="pHandle">@username</div>
+                    <div class="profile-location"><span id="pCity">Не указан</span></div>
+                </div>
+                <div class="profile-header-actions">
+                    <button class="btn-edit" onclick="openEditModal()">Редактировать</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-switch">
+            <button class="tab-btn active" onclick="switchProfileTab('profile', this)">Профиль</button>
+            <button class="tab-btn" onclick="switchProfileTab('orders', this)">Мои заказы</button>
+        </div>
+
+        <div class="tab-content active" id="tab-profile">
+            <div class="profile-grid">
+                <div class="sidebar-strip">
+                    <div class="card">
+                        <div class="card-title">Информация</div>
+                        <ul class="info-list">
+                            <li><span class="lbl">Город</span><span class="val" id="iCity">—</span></li>
+                            <li><span class="lbl">Специализация</span><span class="val" id="iSpec">—</span></li>
+                            <li><span class="lbl">Опыт</span><span class="val" id="iExp">—</span></li>
+                            <li><span class="lbl">На MW. с</span><span class="val" id="iJoined">—</span></li>
+                            <li><span class="lbl">Telegram</span><span class="val" id="iTelegram">—</span></li>
+                            <li><span class="lbl">Мин. бюджет</span><span class="val" id="iBudget">—</span></li>
+                            <li><span class="lbl">Портфолио</span><span class="val" id="iPortfolio">—</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">О себе</div>
+                    <div class="bio-text" id="pBio">Пользователь пока не добавил описание.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Навыки</div>
+                    <div class="skills-grid" id="pSkills">
+                        <div class="empty-state">Навыки не указаны</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-orders">
+            <div id="ordersList">
+                <div class="empty-state">Загрузка заказов...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-box">
+            <h2>Редактировать профиль</h2>
+            <div class="edit-error-msg" id="editError"></div>
+            <form id="editForm" onsubmit="saveProfile(event)">
+                <div class="modal-avatar-upload">
+                    <div class="modal-avatar-preview"><img id="editAvatarPreview" src="" alt=""></div>
+                    <div>
+                        <label class="modal-avatar-btn" for="editAvatarInput">Сменить фото</label>
+                        <input type="file" id="editAvatarInput" accept="image/*" onchange="previewEditAvatar(this)"
+                            style="display:none;">
+                        <div style="font-size:11px;color:#999;margin-top:4px;">JPG/PNG, до 5 МБ</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input id="eUsername" type="text" maxlength="10" disabled
+                        style="background:#f5f5f5;cursor:not-allowed;">
+                    <div class="hint">Нельзя изменить</div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input id="eEmail" type="email" maxlength="16">
+                    <div class="hint">Макс. 16 символов</div>
+                </div>
+                <div class="form-group">
+                    <label>Роль на платформе</label>
+                    <select id="eRole">
+                        <option value="seller">Я исполнитель</option>
+                        <option value="buyer">Я заказчик</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input id="ePhone" type="tel" maxlength="11">
+                    <div class="hint">Ровно 11 цифр</div>
+                </div>
+                <div class="form-group"><label>Специализация</label><select id="eSpec">
+                        <option value="">Не выбрана</option>
+                        <option value="design">Дизайн</option>
+                        <option value="dev">Разработка</option>
+                        <option value="seo">SEO</option>
+                        <option value="texts">Тексты</option>
+                        <option value="video">Видео</option>
+                        <option value="ads">Реклама</option>
+                    </select></div>
+                <div class="form-group"><label>Опыт</label><select id="eExp">
+                        <option value="">Не указан</option>
+                        <option value="0-1">Менее 1 года</option>
+                        <option value="1-3">1-3 года</option>
+                        <option value="3-5">3-5 лет</option>
+                        <option value="5+">Более 5 лет</option>
+                    </select></div>
+                <div class="form-group">
+                    <label>Город</label>
+                    <input id="eCity" type="text" maxlength="10">
+                    <div class="hint">Макс. 10 символов</div>
+                </div>
+                <div class="form-group">
+                    <label>О себе</label>
+                    <textarea id="eBio" maxlength="30"></textarea>
+                    <div class="hint">Макс. 30 символов</div>
+                </div>
+                <div class="form-group">
+                    <label>Навыки (через запятую)</label>
+                    <input id="eSkills" type="text" placeholder="React, Figma, SEO...">
+                    <div class="hint">Каждый навык макс. 20 символов</div>
+                </div>
+                <div class="form-group">
+                    <label>Telegram</label>
+                    <input id="eTelegram" type="text" placeholder="@username">
+                    <div class="hint">Только через @</div>
+                </div>
+                <div class="form-group">
+                    <label>Ссылка на портфолио</label>
+                    <input id="ePortfolio" type="url" maxlength="25">
+                    <div class="hint">Только ссылка, макс. 25 символов</div>
+                </div>
+                <div class="form-group">
+                    <label>Мин. бюджет (₽)</label>
+                    <input id="eBudget" type="number" min="1000" max="50000">
+                    <div class="hint">От 1 000 до 50 000 ₽</div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Отмена</button>
+                    <button type="submit" class="btn-save">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="page-footer">Спасибо что выбираете нас!</div>
+
+    <script>
+        let editAvatarBase64 = null;
+        function getAvatarSrc(u) { if (u.avatar_data) return u.avatar_data; return `https://api.dicebear.com/7.x/avataaars/svg?seed=${u.username}`; }
+        function initHeaderAuth() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (user) { const btn = document.getElementById('headerLoginBtn'); if (btn) btn.style.display = 'none'; const menu = document.getElementById('userMenu'); if (menu) { menu.style.display = 'block'; document.getElementById('headerAvatar').src = getAvatarSrc(user); document.getElementById('headerUserName').textContent = user.first_name || user.username; } }
+            document.addEventListener('click', function (e) { const dd = document.getElementById('userDropdown'); const menu = document.getElementById('userMenu'); if (dd && menu && !menu.contains(e.target)) dd.classList.remove('show'); });
+        }
+        function logoutUser() { localStorage.removeItem('mw_user'); window.location.href = 'index.html'; }
+        fetch('header.html').then(r => r.text()).then(data => { document.getElementById('header-placeholder').innerHTML = data; initHeaderAuth(); });
+
+        const specLabels = { design: 'Дизайн', dev: 'Разработка', seo: 'SEO', texts: 'Тексты', video: 'Видео', ads: 'Реклама' };
+        const expLabels = { '0-1': '< 1 года', '1-3': '1-3 года', '3-5': '3-5 лет', '5+': '5+ лет' };
+        let user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+
+        function checkHash() {
+            const hash = window.location.hash;
+            if (hash === '#settings') { setTimeout(() => openEditModal(), 500); }
+            if (hash === '#orders') { setTimeout(() => switchProfileTab('orders', document.querySelectorAll('.tab-btn')[1]), 300); }
+        }
+
+        function switchProfileTab(tab, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            el.classList.add('active');
+            if (tab === 'orders') loadOrders();
+        }
+
+        async function loadOrders() {
+            const container = document.getElementById('ordersList');
+            if (!user) { container.innerHTML = '<div class="empty-state">Войдите для просмотра заказов</div>'; return; }
+            try {
+                const res = await fetch('/api/admin/orders');
+                const orders = await res.json();
+                const myOrders = orders.filter(o => o.buyer_name === (user.first_name || user.username) || o.seller_name === user.username);
+                if (myOrders.length === 0) { container.innerHTML = '<div class="empty-state">У вас пока нет заказов</div>'; return; }
+                container.innerHTML = myOrders.map(o => `
+                <div class="order-item">
+                    <div class="order-title">${o.kwork_title || 'Заказ #' + o.id}</div>
+                    <div class="order-meta">Продавец: ${o.seller_name} | Статус: ${o.status || 'active'} | ${o.created_at ? new Date(o.created_at).toLocaleDateString('ru-RU') : ''}</div>
+                    <div class="order-price">${(o.price || 0).toLocaleString()} ₽</div>
+                </div>
+            `).join('');
+            } catch (e) { container.innerHTML = '<div class="empty-state">Не удалось загрузить заказы</div>'; }
+        }
+
+        async function changeAvatarDirect(input) {
+            if (!input.files || !input.files[0] || !user) return;
+            const file = input.files[0];
+            if (file.size > 5 * 1024 * 1024) { alert('Максимум 5 МБ'); return; }
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                user.avatar_data = e.target.result;
+                localStorage.setItem('mw_user', JSON.stringify(user));
+                try { await fetch(`/api/profile/${user.username}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...user, avatar_data: user.avatar_data }) }); } catch (err) { }
+                renderProfile();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function previewEditAvatar(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 5 * 1024 * 1024) { alert('Максимум 5 МБ'); return; }
+                const reader = new FileReader();
+                reader.onload = e => { editAvatarBase64 = e.target.result; document.getElementById('editAvatarPreview').src = editAvatarBase64; };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderProfile() {
+            if (!user) { document.querySelector('.profile-container').innerHTML = '<div style="text-align:center;padding:80px 20px;"><h2>Войдите в аккаунт</h2><p style="color:#999;margin:12px 0 24px;">Для просмотра профиля войдите или зарегистрируйтесь.</p><a href="login.html" style="background:#1dbf73;color:#fff;padding:12px 32px;font-weight:700;display:inline-block;">Войти</a></div>'; return; }
+            document.getElementById('pAvatar').src = getAvatarSrc(user);
+            document.getElementById('pName').textContent = user.first_name || user.username;
+            document.getElementById('pHandle').textContent = `@${user.username}`;
+            document.getElementById('pCity').textContent = user.city || 'Не указан';
+            document.getElementById('pBio').textContent = user.bio || 'Пользователь пока не добавил описание.';
+            const roleMap = { seller: 'Исполнитель', buyer: 'Заказчик', both: 'Исполнитель / Заказчик' };
+            document.getElementById('pRoleBadge').textContent = roleMap[user.role] || 'Пользователь';
+            document.getElementById('iCity').textContent = user.city || '—';
+            document.getElementById('iSpec').textContent = specLabels[user.specialty] || user.specialty || '—';
+            document.getElementById('iExp').textContent = expLabels[user.experience] || user.experience || '—';
+            document.getElementById('iTelegram').textContent = user.telegram || '—';
+            document.getElementById('iBudget').textContent = user.min_budget ? `от ${Number(user.min_budget).toLocaleString()} ₽` : '—';
+            if (user.portfolio_url) {
+                document.getElementById('iPortfolio').innerHTML = `<a href="${user.portfolio_url}" target="_blank" rel="noopener noreferrer" style="color:#1dbf73;text-decoration:none;font-weight:600;">Открыть ↗</a>`;
+            } else {
+                document.getElementById('iPortfolio').textContent = '—';
+            }
+            const joined = user.created_at ? new Date(user.created_at).toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' }) : 'Недавно';
+            document.getElementById('iJoined').textContent = joined;
+            try { let skills = typeof user.skills === 'string' ? JSON.parse(user.skills) : (user.skills || []); if (skills.length > 0) document.getElementById('pSkills').innerHTML = skills.map(s => `<span class="skill-tag">${s}</span>`).join(''); } catch (e) { }
+        }
+
+        function showEditError(msg) {
+            const err = document.getElementById('editError');
+            err.textContent = msg;
+            err.style.display = 'block';
+        }
+
+        function openEditModal() {
+            if (!user) return;
+            editAvatarBase64 = null;
+            document.getElementById('editError').style.display = 'none';
+            document.getElementById('editAvatarPreview').src = getAvatarSrc(user);
+            document.getElementById('eUsername').value = user.username || '';
+            document.getElementById('eEmail').value = user.email || '';
+            document.getElementById('eRole').value = user.role || 'seller';
+            document.getElementById('ePhone').value = user.phone || '';
+            document.getElementById('eSpec').value = user.specialty || '';
+            document.getElementById('eExp').value = user.experience || '';
+            document.getElementById('eCity').value = user.city || '';
+            document.getElementById('eBio').value = user.bio || '';
+            document.getElementById('eTelegram').value = user.telegram || '';
+            document.getElementById('ePortfolio').value = user.portfolio_url || '';
+            document.getElementById('eBudget').value = user.min_budget || '';
+            try { let sk = typeof user.skills === 'string' ? JSON.parse(user.skills) : (user.skills || []); document.getElementById('eSkills').value = sk.join(', '); } catch (e) { document.getElementById('eSkills').value = ''; }
+            document.getElementById('editModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() { document.getElementById('editModal').classList.remove('show'); document.body.style.overflow = 'auto'; }
+        document.getElementById('editModal').addEventListener('click', e => { if (e.target === document.getElementById('editModal')) closeEditModal(); });
+
+        async function saveProfile(e) {
+            e.preventDefault();
+            const errEl = document.getElementById('editError');
+            errEl.style.display = 'none';
+
+            const email = document.getElementById('eEmail').value.trim();
+            const phone = document.getElementById('ePhone').value.trim();
+            const city = document.getElementById('eCity').value.trim();
+            const bio = document.getElementById('eBio').value.trim();
+            const telegram = document.getElementById('eTelegram').value.trim();
+            const portfolio = document.getElementById('ePortfolio').value.trim();
+            const budget = parseInt(document.getElementById('eBudget').value) || 0;
+            const skillsRaw = document.getElementById('eSkills').value;
+            const role = document.getElementById('eRole').value;
+
+            if (email) {
+                if (email.length > 16) { showEditError('Email максимум 16 символов'); return; }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) { showEditError('Введите корректный email'); return; }
+            }
+            if (phone && !/^\d{11}$/.test(phone)) { showEditError('Телефон: ровно 11 цифр'); return; }
+            if (city && city.length > 10) { showEditError('Город максимум 10 символов'); return; }
+            if (bio && bio.length > 30) { showEditError('О себе максимум 30 символов'); return; }
+
+            const skillsArr = skillsRaw.split(',').map(s => s.trim()).filter(Boolean);
+            for (const skill of skillsArr) {
+                if (skill.length > 20) { showEditError('Каждый навык максимум 20 символов'); return; }
+            }
+
+            if (telegram && !telegram.startsWith('@')) { showEditError('Telegram должен начинаться с @'); return; }
+            if (portfolio) {
+                if (portfolio.length > 25) { showEditError('Ссылка на портфолио макс. 25 символов'); return; }
+                if (!/^https?:\/\/.+/.test(portfolio)) { showEditError('Портфолио: введите корректную ссылку (https://...)'); return; }
+            }
+            if (budget) {
+                if (budget < 1000 || budget > 50000) { showEditError('Бюджет от 1 000 до 50 000 ₽'); return; }
+            }
+
+            const avatarToSave = editAvatarBase64 || user.avatar_data || null;
+            const updated = {
+                email: email, role: role,
+                phone: phone, specialty: document.getElementById('eSpec').value,
+                skills: JSON.stringify(skillsArr), experience: document.getElementById('eExp').value,
+                city: city, bio: bio,
+                portfolio_url: portfolio, telegram: telegram,
+                min_budget: budget || 0, avatar_data: avatarToSave,
+            };
+            try { await fetch(`/api/profile/${user.username}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updated) }); } catch (err) { }
+            Object.assign(user, updated);
+            localStorage.setItem('mw_user', JSON.stringify(user));
+            closeEditModal();
+            renderProfile();
+        }
+
+        renderProfile();
+        checkHash();
+    </script>
+</body>
+
+</html>

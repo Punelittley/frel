@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="styles/create.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+<style>
+    .create-page {
+    max-width: 700px;
+    margin: 50px auto 60px;
+}
+
+.create-page h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.create-page .subtitle {
+    color: #74767e;
+    font-size: 15px;
+    margin-bottom: 36px;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 16px;
+    padding: 36px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e4e5e7;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #1dbf73;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group .hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.skills-input {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #404145;
+}
+
+.skill-chip i {
+    cursor: pointer;
+    color: #999;
+    font-size: 11px;
+}
+
+.skill-chip i:hover {
+    color: #e74c3c;
+}
+
+.btn-submit {
+    display: inline-block;
+    background: #1dbf73;
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background: #19a463;
+}
+
+.btn-submit:disabled {
+    background: #ccc;
+    cursor: default;
+}
+
+.success-msg {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.success-msg i {
+    font-size: 48px;
+    color: #1dbf73;
+    margin-bottom: 16px;
+}
+
+.success-msg h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.success-msg p {
+    color: #74767e;
+    margin-bottom: 24px;
+}
+
+.success-msg a {
+    color: #1dbf73;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.page-footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 13px;
+    color: #999;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .create-page {
+        margin: 30px auto 40px;
+    }
+
+    .create-page h1 {
+        font-size: 22px;
+    }
+
+    .form-card {
+        padding: 24px;
+        border-radius: 12px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .btn-submit {
+        padding: 14px 30px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-page {
+        margin: 20px auto 30px;
+    }
+
+    .create-page h1 {
+        font-size: 20px;
+    }
+
+    .create-page .subtitle {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .form-card {
+        padding: 16px;
+        border-radius: 8px;
+    }
+
+    .skills-input {
+        gap: 6px;
+    }
+
+    .skill-chip {
+        padding: 3px 10px;
+        font-size: 12px;
+    }
+}
+</style>
+<body>
+    <div id="header-placeholder"></div>
+    <main class="container">
+        <div class="create-page">
+            <h1>Создать проект</h1>
+            <p class="subtitle">Опишите задачу, и исполнители предложат свои услуги</p>
+
+            <div class="form-card" id="createForm">
+                <div class="form-group">
+                    <label>Название проекта</label>
+                    <input type="text" id="projTitle" placeholder="Например: Разработка лендинга для стартапа">
+                </div>
+
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select id="projCategory">
+                        <option value="">Выберите категорию</option>
+                        <option value="dev">Разработка</option>
+                        <option value="design">Дизайн</option>
+                        <option value="seo">SEO</option>
+                        <option value="texts">Тексты</option>
+                        <option value="ads">Реклама</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="projDesc" placeholder="Подробно опишите что нужно сделать, какой результат вы ожидаете..."></textarea>
+                    <div class="hint">Чем подробнее описание — тем точнее будут отклики</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Бюджет (₽)</label>
+                    <input type="number" id="projPrice" placeholder="5000" min="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Срок выполнения</label>
+                    <input type="text" id="projDeadline" placeholder="Например: 5 дней">
+                </div>
+
+                <div class="form-group">
+                    <label>Навыки (Enter для добавления)</label>
+                    <input type="text" id="skillInput" placeholder="React, Figma, Python...">
+                    <div class="skills-input" id="skillsList"></div>
+                </div>
+
+                <button class="btn-submit" id="submitBtn" onclick="submitProject()">Опубликовать проект</button>
+            </div>
+
+            <div class="success-msg" id="successMsg">
+                <i class="fa fa-check-circle"></i>
+                <h2>Проект опубликован!</h2>
+                <p>Исполнители уже видят ваш проект и скоро начнут откликаться.</p>
+                <a href="exchange.html"><i class="fa fa-arrow-left" style="margin-right:8px"></i>Вернуться на биржу</a>
+            </div>
+        </div>
+    </main>
+
+    <div class="page-footer">Спасибо что выбираете нас!</div>
+
+    <script>
+        function getAvatarSrc(u) {
+            if (u && u.avatar_data) return u.avatar_data;
+            return 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (u ? u.username : 'user');
+        }
+
+        function initHeaderAuth() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (user) {
+                document.getElementById('headerLoginBtn').style.display = 'none';
+                const menu = document.getElementById('userMenu');
+                menu.style.display = 'block';
+                document.getElementById('headerAvatar').src = getAvatarSrc(user);
+                document.getElementById('headerUserName').textContent = user.first_name || user.username;
+            }
+            document.addEventListener('click', function(e) {
+                const dd = document.getElementById('userDropdown');
+                const menu = document.getElementById('userMenu');
+                if (dd && menu && !menu.contains(e.target)) dd.classList.remove('show');
+            });
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('mw_user');
+            window.location.href = 'index.html';
+        }
+
+        fetch('header.html').then(r => r.text()).then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            initHeaderAuth();
+        });
+
+
+        const skills = [];
+        document.getElementById('skillInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const val = this.value.trim();
+                if (val && !skills.includes(val)) {
+                    skills.push(val);
+                    renderSkills();
+                }
+                this.value = '';
+            }
+        });
+
+        function renderSkills() {
+            document.getElementById('skillsList').innerHTML = skills.map((s, i) =>
+                `<span class="skill-chip">${s} <i class="fa fa-times" onclick="removeSkill(${i})"></i></span>`
+            ).join('');
+        }
+
+        function removeSkill(i) {
+            skills.splice(i, 1);
+            renderSkills();
+        }
+
+        async function submitProject() {
+            const user = JSON.parse(localStorage.getItem('mw_user') || 'null');
+            if (!user) { window.location.href = 'login.html'; return; }
+
+            const title = document.getElementById('projTitle').value.trim();
+            const category = document.getElementById('projCategory').value;
+            const description = document.getElementById('projDesc').value.trim();
+            const price = parseInt(document.getElementById('projPrice').value);
+            const deadline = document.getElementById('projDeadline').value.trim();
+
+            if (!title || !category || !description || !price) {
+                alert('Заполните все обязательные поля');
+                return;
+            }
+
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Публикация...';
+
+            try {
+                const res = await fetch('/api/projects', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title, category, description, price, deadline,
+                        skills: JSON.stringify(skills),
+                        user_id: user.id,
+                        client_name: user.first_name || user.username
+                    })
+                });
+                if (res.ok) {
+                    document.getElementById('createForm').style.display = 'none';
+                    document.getElementById('successMsg').style.display = 'block';
+                } else {
+                    alert('Ошибка при создании проекта');
+                    document.getElementById('submitBtn').disabled = false;
+                    document.getElementById('submitBtn').textContent = 'Опубликовать проект';
+                }
+            } catch(e) {
+                alert('Ошибка сети');
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').textContent = 'Опубликовать проект';
+            }
+        }
+    </script>
+</body>
+</html>
